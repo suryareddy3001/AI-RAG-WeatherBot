@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.7.3
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_storage:/qdrant/storage
+  app:
+    build: .
+    environment:
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+      - QDRANT_COLLECTION=ai_rag_weather_docs
+      - LANGCHAIN_TRACING_V2=true
+      - LANGCHAIN_ENDPOINT=https://api.smith.langchain.com
+      - LANGSMITH_PROJECT=ai-rag-weather
+      - APP_ENV=dev
+    ports:
+      - "8501:8501"
+    depends_on:
+      - qdrant
+    volumes:
+      - ./data:/app/data
+      - ./.env:/app/.env:ro
+volumes:
+  qdrant_storage:

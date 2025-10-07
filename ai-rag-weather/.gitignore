@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+*.sqlite3
+*.db
+*.log
+*.pkl
+*.mypy_cache/
+*.pytest_cache/
+.coverage
+.cache/
+
+# VSCode
+.vscode/
+
+# Qdrant
+qdrant_storage/
+
+# Streamlit
+.streamlit/
+
+# Docker
+*.pid
+
+# Misc
+.DS_Store

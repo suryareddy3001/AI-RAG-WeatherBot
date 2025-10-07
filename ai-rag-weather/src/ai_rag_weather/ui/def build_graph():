@@ -1,0 +1,19 @@
+def build_graph():
+    graph = StateGraph(GraphState)
+    graph.add_node("router", router_node)
+    graph.add_node("weather", weather_node)
+    graph.add_node("rag", rag_node)
+    graph.add_node("synthesis", synthesis_node)
+    graph.add_conditional_edges(
+        "router",
+        lambda s: s["intent"],
+        {
+            "weather": "weather",
+            "doc_qa": "rag",
+        },
+    )
+    graph.add_edge("weather", "synthesis")
+    graph.add_edge("rag", "synthesis")
+    graph.set_entry_node("router")
+    graph.set_exit_node("synthesis")
+    return graph.compile()
